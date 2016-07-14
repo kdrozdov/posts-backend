@@ -18,7 +18,7 @@ gem 'puma', '~> 3.0'
 # gem 'capistrano-rails', group: :development
 
 # Use Rack CORS for handling Cross-Origin Resource Sharing (CORS), making cross-origin AJAX possible
-# gem 'rack-cors'
+gem 'rack-cors'
 
 group :development, :test do
   gem "dotenv-rails"
@@ -26,6 +26,8 @@ group :development, :test do
 end
 
 group :development do
+  gem 'rspec-rails'
+  gem 'factory_girl'
   gem 'listen', '~> 3.0.5'
   gem 'spring'
   gem 'spring-watcher-listen', '~> 2.0.0'
