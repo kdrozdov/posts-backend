@@ -84,7 +84,6 @@ GEM
     mime-types-data (3.2016.0521)
     mini_portile2 (2.1.0)
     minitest (5.9.0)
-    mustache (1.0.3)
     nio4r (1.2.1)
     nokogiri (1.6.8)
       mini_portile2 (~> 2.1.0)
@@ -144,10 +143,6 @@ GEM
       rspec-mocks (~> 3.5.0)
       rspec-support (~> 3.5.0)
     rspec-support (3.5.0)
-    rspec_api_documentation (4.8.0)
-      activesupport (>= 3.0.0)
-      mustache (~> 1.0, >= 0.99.4)
-      rspec (~> 3.0, >= 3.0.0)
     ruby-progressbar (1.8.1)
     shoulda-matchers (3.1.1)
       activesupport (>= 4.0.0)
@@ -187,7 +182,6 @@ DEPENDENCIES
   rack-cors
   rails (~> 5.0.0)
   rspec-rails
-  rspec_api_documentation (~> 4.8.0)
   shoulda-matchers (~> 3.1)
   spring
   spring-watcher-listen (~> 2.0.0)

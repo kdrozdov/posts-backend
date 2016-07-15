@@ -23,7 +23,6 @@ group :test do
   gem 'factory_girl_rails'
   gem 'database_cleaner'
   gem 'fuubar'
-  gem 'rspec_api_documentation', '~> 4.8.0'
   gem 'shoulda-matchers', '~> 3.1'
 end
 
