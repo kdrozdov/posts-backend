@@ -15,7 +15,7 @@ RSpec.describe 'Posts API', type: :request do
       expect(subject.length).to eq(posts.length)
     end
 
-    def do_request(options={})
+    def do_request(options = {})
       get '/api/posts', as: :json, params: options
     end
   end
@@ -31,7 +31,7 @@ RSpec.describe 'Posts API', type: :request do
     end
 
     it 'changes post count' do
-      expect{ do_request(post_params) }.to change(Post, :count).by(1)
+      expect { do_request(post_params) }.to change(Post, :count).by(1)
     end
 
     it 'returns post' do
@@ -39,7 +39,7 @@ RSpec.describe 'Posts API', type: :request do
       expect(subject['attributes']['title']).to eq(post_params[:post][:title])
     end
 
-    def do_request(options={})
+    def do_request(options = {})
       post '/api/posts', as: :json, params: options
     end
   end
@@ -57,7 +57,7 @@ RSpec.describe 'Posts API', type: :request do
       expect(subject['attributes']['title']).to eq(post.title)
     end
 
-    def do_request(options={})
+    def do_request(options = {})
       get "/api/posts/#{post.id}", as: :json, params: options
     end
   end
@@ -66,7 +66,7 @@ RSpec.describe 'Posts API', type: :request do
     let!(:post) { create(:post, title: 'Old title') }
     let(:title) { 'New title' }
     let(:post_params) do
-      { post: { title: title }}
+      { post: { title: title } }
     end
     before { do_request(post_params) }
 
@@ -78,7 +78,7 @@ RSpec.describe 'Posts API', type: :request do
       expect(subject['attributes']['title']).to eq(title)
     end
 
-    def do_request(options={})
+    def do_request(options = {})
       put "/api/posts/#{post.id}", as: :json, params: options
     end
   end
@@ -92,10 +92,10 @@ RSpec.describe 'Posts API', type: :request do
     end
 
     it 'destroy post' do
-      expect{ do_request() }.to change(Post, :count).by(-1)
+      expect { do_request }.to change(Post, :count).by(-1)
     end
 
-    def do_request(options={})
+    def do_request(options = {})
       delete "/api/posts/#{post.id}", as: :json, params: options
     end
   end
