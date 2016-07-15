@@ -34,7 +34,7 @@ RSpec.describe 'Posts API', type: :request do
       expect{ do_request(post_params) }.to change(Post, :count).by(1)
     end
 
-    it 'returnes post' do
+    it 'returns post' do
       do_request(post_params)
       expect(subject['attributes']['title']).to eq(post_params[:post][:title])
     end
