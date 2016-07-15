@@ -13,6 +13,8 @@ group :development, :test do
 end
 
 group :development do
+  gem 'rubocop'
+  gem 'overcommit'
   gem 'listen', '~> 3.0.5'
   gem 'spring'
   gem 'spring-watcher-listen', '~> 2.0.0'
@@ -26,4 +28,4 @@ group :test do
   gem 'shoulda-matchers', '~> 3.1'
 end
 
-gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
+gem 'tzinfo-data', platforms: %i(mingw mswin x64_mingw jruby)
