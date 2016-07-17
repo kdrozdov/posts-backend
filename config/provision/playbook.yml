@@ -1,9 +1,11 @@
 ---
 - hosts: 'all'
-  remote_user: 'root'
+  remote_user: 'ubuntu'
+  become: yes
+  become_method: sudo
 
   vars:
-    ruby_version: '2.2.4'
+    ruby_version: '2.3.1'
     user: 'deployer'
     home: '/home/{{ user }}'
     rbenv_root: '{{ home }}/.rbenv'
@@ -110,9 +112,6 @@
     - name: 'postgresql | create database'
       shell: 'createdb -U postgres -O postgres -E UTF8 -l en_US.UTF-8 {{ name }}_production'
       when: 'postgres_login|failed'
-
-    - name: 'rails | copy settings.yml'
-      copy: 'src=configs/settings.yml dest={{ application }}/shared/config/settings.yml owner={{ user }} group={{ user }} mode=0644'
 
     - name: 'nginx | check config'
       command: 'test -f /etc/nginx/sites-enabled/{{ name }}.conf'
