@@ -8,7 +8,7 @@ set :deploy_to, "/home/deployer/applications/#{fetch(:application)}"
 
 set :linked_files, %w(config/database.yml)
 set :linked_dirs, %w(
-  bin log tmp/pids tmp/cache tmp/sockets vendor/bundle public/uploads
+  log tmp/pids tmp/cache tmp/sockets vendor/bundle public/uploads
 )
 
 set :rbenv_type, :user
