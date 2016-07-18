@@ -9,6 +9,8 @@ AllCops:
     - db/**/*
     - config/initializers/*
     - config/environments/*
+    - config/deploy/*
+    - config/deploy.rb
 
 Style/FrozenStringLiteralComment:
   Enabled: false

@@ -32,18 +32,20 @@ class Api::PostsController < ApplicationController
   # DELETE /api/posts/1
   def destroy
     post.destroy
+    head :no_content
   end
 
   private
-    def post
-      @post ||= Post.find(params[:id])
-    end
 
-    def posts
-      @posts ||= Post.all
-    end
+  def post
+    @post ||= Post.find(params[:id])
+  end
 
-    def post_params
-      params.require(:post).permit(:title, :body, :username)
-    end
+  def posts
+    @posts ||= Post.all
+  end
+
+  def post_params
+    params.require(:post).permit(:title, :body)
+  end
 end

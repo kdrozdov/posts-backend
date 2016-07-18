@@ -1,3 +1,4 @@
+**/.DS_Store
 /.bundle
 /log/*
 /tmp/*
@@ -6,3 +7,5 @@
 .byebug_history
 config/database.yml
 .env
+config/provision/hosts
+config/provision/*.retry
