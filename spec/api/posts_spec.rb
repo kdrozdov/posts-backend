@@ -21,8 +21,11 @@ RSpec.describe 'Posts API', type: :request do
   end
 
   describe 'POST #create' do
+    let(:user_attributes) do
+      { name: 'test-user' }
+    end
     let(:post_params) do
-      { post: attributes_for(:post) }
+      { post: attributes_for(:post).merge(user_attributes: user_attributes) }
     end
 
     it 'returns 201 status code' do
@@ -37,6 +40,11 @@ RSpec.describe 'Posts API', type: :request do
     it 'returns post' do
       do_request(post_params)
       expect(subject['attributes']['title']).to eq(post_params[:post][:title])
+    end
+
+    it 'create user' do
+      expect { do_request(post_params) }.to change(User, :count).by(1)
+      expect(subject['attributes']['username']).to eq(user_attributes[:name])
     end
 
     def do_request(options = {})
