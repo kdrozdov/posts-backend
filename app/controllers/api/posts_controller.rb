@@ -46,6 +46,11 @@ class Api::PostsController < ApplicationController
   end
 
   def post_params
-    params.require(:post).permit(:title, :body)
+    permitted_attributes = [
+      :title,
+      :body,
+      user_attributes: %i(id name)
+    ]
+    params.require(:post).permit(permitted_attributes)
   end
 end
