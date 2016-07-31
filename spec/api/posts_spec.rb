@@ -1,6 +1,8 @@
 require 'rails_helper'
 
 RSpec.describe 'Posts API', type: :request do
+  let(:user) { create(:user) }
+  let(:auth_header) { { 'HTTP_AUTHORIZATION' => "Bearer #{user.to_token}" } }
   subject { JSON.parse(response.body).fetch('data') }
 
   describe 'GET #index' do
@@ -21,11 +23,8 @@ RSpec.describe 'Posts API', type: :request do
   end
 
   describe 'POST #create' do
-    let(:user_attributes) do
-      { name: 'test-user' }
-    end
     let(:post_params) do
-      { post: attributes_for(:post).merge(user_attributes: user_attributes) }
+      { post: attributes_for(:post) }
     end
 
     it 'returns 201 status code' do
@@ -42,13 +41,13 @@ RSpec.describe 'Posts API', type: :request do
       expect(subject['attributes']['title']).to eq(post_params[:post][:title])
     end
 
-    it 'create user' do
-      expect { do_request(post_params) }.to change(User, :count).by(1)
-      expect(subject['attributes']['username']).to eq(user_attributes[:name])
+    it 'bind post with current user' do
+      do_request(post_params)
+      expect(subject['attributes']['username']).to eq(user.name)
     end
 
     def do_request(options = {})
-      post '/api/posts', as: :json, params: options
+      post '/api/posts', as: :json, params: options, headers: auth_header
     end
   end
 
@@ -87,7 +86,8 @@ RSpec.describe 'Posts API', type: :request do
     end
 
     def do_request(options = {})
-      put "/api/posts/#{post.id}", as: :json, params: options
+      put "/api/posts/#{post.id}", as: :json, params: options,
+                                   headers: auth_header
     end
   end
 
@@ -104,7 +104,8 @@ RSpec.describe 'Posts API', type: :request do
     end
 
     def do_request(options = {})
-      delete "/api/posts/#{post.id}", as: :json, params: options
+      delete "/api/posts/#{post.id}", as: :json, params: options,
+                                      headers: auth_header
     end
   end
 end

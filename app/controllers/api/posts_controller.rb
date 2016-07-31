@@ -1,17 +1,17 @@
 class Api::PostsController < ApplicationController
-  # GET /api/posts
+  before_action :authenticate_user, only: %i(create update destroy)
+
   def index
     render json: posts
   end
 
-  # GET /api/posts/1
   def show
     render json: post
   end
 
-  # POST /api/posts
   def create
     @post = Post.new(post_params)
+    @post.user = current_user
 
     if post.save
       render json: post, status: :created
@@ -20,7 +20,6 @@ class Api::PostsController < ApplicationController
     end
   end
 
-  # PATCH/PUT /api/posts/1
   def update
     if post.update(post_params)
       render json: post
@@ -29,7 +28,6 @@ class Api::PostsController < ApplicationController
     end
   end
 
-  # DELETE /api/posts/1
   def destroy
     post.destroy
     head :no_content
@@ -46,11 +44,10 @@ class Api::PostsController < ApplicationController
   end
 
   def post_params
-    permitted_attributes = [
-      :title,
-      :body,
-      user_attributes: %i(id name)
-    ]
+    permitted_attributes = %i(
+      title
+      body
+    )
     params.require(:post).permit(permitted_attributes)
   end
 end

@@ -5,6 +5,7 @@ gem 'pg', '~> 0.18'
 gem 'puma', '~> 3.0'
 gem 'rack-cors'
 gem 'active_model_serializers', '~> 0.10.0'
+gem 'knock'
 
 group :development, :test do
   gem 'dotenv-rails'
