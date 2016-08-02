@@ -18,6 +18,7 @@ RSpec.describe 'AuthTokens API', type: :request do
       do_request(auth_params)
       decoded_token = Knock::AuthToken.new(token: subject)
       expect(decoded_token.payload['sub']).to eq(user.id)
+      expect(decoded_token.payload['name']).to eq(user.name)
     end
 
     context 'invalid password' do

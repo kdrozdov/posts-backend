@@ -21,6 +21,7 @@ RSpec.describe 'Registrations API', type: :request do
       do_request(user_params)
       decoded_token = Knock::AuthToken.new(token: subject)
       expect(decoded_token.payload['sub']).to eq(User.last.id)
+      expect(decoded_token.payload['name']).to eq(User.last.name)
     end
 
     def do_request(options = {})

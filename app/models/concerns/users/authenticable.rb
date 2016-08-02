@@ -23,8 +23,12 @@ module Users
       end
     end
 
+    def to_token_payload
+      { sub: id, name: name }
+    end
+
     def to_token
-      ::Knock::AuthToken.new(payload: { sub: id }).token
+      ::Knock::AuthToken.new(payload: to_token_payload).token
     end
 
     private
