@@ -3,7 +3,7 @@ class Api::Users::RegistrationsController < ::ApplicationController
     if user.save
       render json: auth_token, status: :created
     else
-      render json: user.errors, status: :unprocessable_entity
+      render json: { errors: user.errors }, status: :unprocessable_entity
     end
   end
 
