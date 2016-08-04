@@ -19,8 +19,7 @@ module Posts
 
     class_methods do
       def search(query)
-        return all unless query.present?
-        search_by_title(query)
+        query.present? ? search_by_title(query) : all
       end
     end
   end

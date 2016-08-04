@@ -19,6 +19,5 @@ Bundler.require(*Rails.groups)
 module SpaBackend
   class Application < Rails::Application
     config.api_only = true
-    config.autoload_paths << Rails.root.join('lib')
   end
 end
