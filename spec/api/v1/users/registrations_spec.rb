@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe 'Registrations API', type: :request do
+RSpec.describe 'V1::Registrations API', type: :request do
   subject { JSON.parse(response.body).fetch('jwt') }
 
   describe 'POST #create' do
@@ -25,7 +25,7 @@ RSpec.describe 'Registrations API', type: :request do
     end
 
     def do_request(options = {})
-      post '/api/registrations', as: :json, params: options
+      post api_v1_registrations_path, as: :json, params: options
     end
   end
 end

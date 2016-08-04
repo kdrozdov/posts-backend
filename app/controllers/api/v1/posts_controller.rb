@@ -1,4 +1,4 @@
-class Api::PostsController < ApplicationController
+class Api::V1::PostsController < ApplicationController
   before_action :authenticate_user, only: %i(create update destroy)
 
   def index
@@ -40,13 +40,18 @@ class Api::PostsController < ApplicationController
   end
 
   def posts
-    @posts ||= Post.all
+    @posts ||= Post.search(params[:q])
+                   .apply_sort(params[:sort_by], params[:sort_direction])
+                   .page(params[:page])
+                   .per(params[:per])
   end
 
   def post_params
     permitted_attributes = %i(
       title
       body
+      image
+      remove_image
     )
     params.require(:post).permit(permitted_attributes)
   end

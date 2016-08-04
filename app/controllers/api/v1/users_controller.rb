@@ -1,5 +1,4 @@
-class Api::UsersController < ApplicationController
-  # GET /api/users
+class Api::V1::UsersController < ApplicationController
   def index
     render json: users
   end

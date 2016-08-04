@@ -1,24 +1,54 @@
 require 'rails_helper'
 
-RSpec.describe 'Posts API', type: :request do
+RSpec.describe 'V1::Posts API', type: :request do
   let(:user) { create(:user) }
   let(:auth_header) { { 'HTTP_AUTHORIZATION' => "Bearer #{user.to_token}" } }
   subject { JSON.parse(response.body).fetch('data') }
 
   describe 'GET #index' do
     let!(:posts) { create_list(:post, 3) }
-    before { do_request }
 
     it 'returns 200 status code' do
+      do_request
       expect(response.status).to eq(200)
     end
 
     it 'returns list of posts' do
+      do_request
       expect(subject.length).to eq(posts.length)
     end
 
+    context 'with search param' do
+      let!(:post) { create(:post, title: '111222333') }
+      let(:options) { { q: '111' } }
+
+      it 'returns search result' do
+        do_request(options)
+        expect(subject.length).to eq(1)
+        expect(subject[0]['id']).to eq(post.id.to_s)
+      end
+    end
+
+    context 'with sort params' do
+      let(:options) { { sort_by: :created_at, sort_direction: :desc } }
+
+      it 'returns sorted result' do
+        do_request(options)
+        expect(subject[0]['id']).to eq(posts.last.id.to_s)
+      end
+    end
+
+    context 'with page param' do
+      let(:options) { { page: 2, per: 2 } }
+
+      it 'returns paginated result' do
+        do_request(options)
+        expect(subject.length).to eq(1)
+      end
+    end
+
     def do_request(options = {})
-      get '/api/posts', as: :json, params: options
+      get api_v1_posts_path, params: options
     end
   end
 
@@ -39,6 +69,8 @@ RSpec.describe 'Posts API', type: :request do
     it 'returns post' do
       do_request(post_params)
       expect(subject['attributes']['title']).to eq(post_params[:post][:title])
+      image_url = Post.last.image.small.url
+      expect(subject['attributes']['image']['small']).to eq(image_url)
     end
 
     it 'bind post with current user' do
@@ -47,7 +79,7 @@ RSpec.describe 'Posts API', type: :request do
     end
 
     def do_request(options = {})
-      post '/api/posts', as: :json, params: options, headers: auth_header
+      post api_v1_posts_path, params: options, headers: auth_header
     end
   end
 
@@ -65,7 +97,7 @@ RSpec.describe 'Posts API', type: :request do
     end
 
     def do_request(options = {})
-      get "/api/posts/#{post.id}", as: :json, params: options
+      get api_v1_post_path(post), as: :json, params: options
     end
   end
 
@@ -86,8 +118,8 @@ RSpec.describe 'Posts API', type: :request do
     end
 
     def do_request(options = {})
-      put "/api/posts/#{post.id}", as: :json, params: options,
-                                   headers: auth_header
+      put api_v1_post_path(post.id), as: :json, params: options,
+                                     headers: auth_header
     end
   end
 
@@ -104,8 +136,8 @@ RSpec.describe 'Posts API', type: :request do
     end
 
     def do_request(options = {})
-      delete "/api/posts/#{post.id}", as: :json, params: options,
-                                      headers: auth_header
+      delete api_v1_post_path(post.id), as: :json, params: options,
+                                        headers: auth_header
     end
   end
 end

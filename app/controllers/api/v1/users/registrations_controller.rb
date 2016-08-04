@@ -1,4 +1,4 @@
-class Api::Users::RegistrationsController < ::ApplicationController
+class Api::V1::Users::RegistrationsController < ::ApplicationController
   def create
     if user.save
       render json: auth_token, status: :created

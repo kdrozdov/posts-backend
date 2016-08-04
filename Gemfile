@@ -6,6 +6,10 @@ gem 'puma', '~> 3.0'
 gem 'rack-cors'
 gem 'active_model_serializers', '~> 0.10.0'
 gem 'knock'
+gem 'pg_search'
+gem 'kaminari'
+gem 'carrierwave'
+gem 'mini_magick'
 
 group :development, :test do
   gem 'dotenv-rails'

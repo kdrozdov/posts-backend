@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe 'Users API', type: :request do
+RSpec.describe 'V1::Users API', type: :request do
   subject { JSON.parse(response.body).fetch('data') }
 
   describe 'GET #index' do
@@ -16,7 +16,7 @@ RSpec.describe 'Users API', type: :request do
     end
 
     def do_request(options = {})
-      get '/api/users', as: :json, params: options
+      get api_v1_users_path, as: :json, params: options
     end
   end
 end
