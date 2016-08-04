@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe 'AuthTokens API', type: :request do
+RSpec.describe 'V1::AuthTokens API', type: :request do
   subject { JSON.parse(response.body).fetch('jwt') }
 
   describe 'POST #create' do
@@ -33,7 +33,7 @@ RSpec.describe 'AuthTokens API', type: :request do
     end
 
     def do_request(options = {})
-      post '/api/auth_tokens', as: :json, params: options
+      post api_v1_auth_tokens_path, as: :json, params: options
     end
   end
 end
