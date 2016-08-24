@@ -2,7 +2,7 @@ class Api::V1::PostsController < ApplicationController
   before_action :authenticate_user, only: %i(create update destroy)
 
   def index
-    render json: posts
+    render json: posts, meta: { total_pages: posts.total_pages }
   end
 
   def show

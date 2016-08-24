@@ -45,4 +45,5 @@ Rails.application.configure do
   config.file_watcher = ActiveSupport::EventedFileUpdateChecker
 
   config.action_dispatch.tld_length = 1
+  config.uri = URI('http://lvh.me:3000')
 end
