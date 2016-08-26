@@ -1,3 +1,3 @@
 CarrierWave.configure do |config|
-  config.asset_host = Rails.application.config.uri.to_s
+  config.asset_host = URI(ENV.fetch('POSTS_URI'))
 end

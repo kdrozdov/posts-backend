@@ -10,6 +10,8 @@ gem 'pg_search'
 gem 'kaminari'
 gem 'carrierwave'
 gem 'mini_magick'
+gem 'rollbar'
+gem 'newrelic_rpm'
 
 group :development, :test do
   gem 'dotenv-rails'

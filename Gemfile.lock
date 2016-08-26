@@ -124,9 +124,11 @@ GEM
     mini_magick (4.3.6)
     mini_portile2 (2.1.0)
     minitest (5.9.0)
+    multi_json (1.12.1)
     net-scp (1.2.1)
       net-ssh (>= 2.6.5)
     net-ssh (3.2.0)
+    newrelic_rpm (3.16.2.321)
     nio4r (1.2.1)
     nokogiri (1.6.8)
       mini_portile2 (~> 2.1.0)
@@ -176,6 +178,8 @@ GEM
     rb-fsevent (0.9.7)
     rb-inotify (0.9.7)
       ffi (>= 0.5.0)
+    rollbar (2.12.0)
+      multi_json
     rspec (3.5.0)
       rspec-core (~> 3.5.0)
       rspec-expectations (~> 3.5.0)
@@ -249,12 +253,14 @@ DEPENDENCIES
   knock
   listen (~> 3.0.5)
   mini_magick
+  newrelic_rpm
   overcommit
   pg (~> 0.18)
   pg_search
   puma (~> 3.0)
   rack-cors
   rails (~> 5.0.0)
+  rollbar
   rspec-rails
   rubocop
   shoulda-matchers (~> 3.1)
